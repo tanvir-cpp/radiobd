@@ -1,0 +1,483 @@
+export interface Station {
+  id: string;
+  name: string;
+  nameBn: string;
+  frequency: string;
+  freqNum: number;
+  category: "commercial" | "betar" | "music" | "spiritual" | "talk" | "heritage";
+  location: string;
+  locationBn: string;
+  streamUrl: string;
+  fallbackUrls: string[];
+  type: "mp3" | "aac" | "hls";
+  bitrate: string;
+  tagline: string;
+  taglineBn: string;
+  website: string;
+  genre: string;
+  genreBn: string;
+  color: string;
+  icon: string;
+}
+
+export const CATEGORIES = [
+  { id: "all", label: "All Stations", labelBn: "সব স্টেশন" },
+  { id: "commercial", label: "Private FM", labelBn: "এফএম রেডিও" },
+  { id: "betar", label: "Bangladesh Betar", labelBn: "বাংলাদেশ বেতার" },
+  { id: "music", label: "Online & HD", labelBn: "অনলাইন মিউজিক" },
+  { id: "heritage", label: "Heritage & Culture", labelBn: "ঐতিহ্য ও সংস্কৃতি" },
+  { id: "spiritual", label: "Spiritual", labelBn: "আধ্যাত্মিক" },
+  { id: "talk", label: "News & Talk", labelBn: "সংবাদ ও তথ্য" },
+] as const;
+
+export const STATIONS: Station[] = [
+  {
+    id: "radio-foorti",
+    name: "Radio Foorti",
+    nameBn: "রেডিও ফুর্তি",
+    frequency: "88.0 FM",
+    freqNum: 88.0,
+    category: "commercial",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "https://radiofoorti.fm/api/stream",
+    fallbackUrls: ["http://119.148.23.88:1021/;stream/1"],
+    type: "mp3",
+    bitrate: "128 Kb/s",
+    tagline: "Dhaka's #1 Hit Music Station",
+    taglineBn: "ফুুর্তি মানেই ঢাকা!",
+    website: "https://radiofoorti.fm",
+    genre: "Pop Hits",
+    genreBn: "পপ ও হিট গান",
+    color: "#ff2a54", // Crimson Coral
+    icon: "saxophone"
+  },
+  {
+    id: "radio-today",
+    name: "Radio Today",
+    nameBn: "রেডিও টুডে",
+    frequency: "89.6 FM",
+    freqNum: 89.6,
+    category: "commercial",
+    location: "Dhaka & Nationwide",
+    locationBn: "ঢাকা ও সারাদেশ",
+    streamUrl: "https://rt1485.out.airtime.pro/rt1485_b",
+    fallbackUrls: [],
+    type: "aac",
+    bitrate: "128 Kb/s",
+    tagline: "The First Private FM Station of Bangladesh",
+    taglineBn: "প্রথম বেসরকারি এফএম রেডিও",
+    website: "https://radiotodaybd.fm",
+    genre: "News & Talk",
+    genreBn: "সংবাদ ও কথকতা",
+    color: "#00c6ff", // Electric Cyan
+    icon: "mic"
+  },
+  {
+    id: "dhaka-fm",
+    name: "Dhaka FM",
+    nameBn: "ঢাকা এফএম",
+    frequency: "90.4 FM",
+    freqNum: 90.4,
+    category: "commercial",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "http://118.179.219.244:8000/;",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "128 Kb/s",
+    tagline: "Always With You 24/7",
+    taglineBn: "সবসময় আপনার সাথে",
+    website: "http://dhakafm904.com",
+    genre: "Urban Pop",
+    genreBn: "সমকালীন ও তারুণ্য",
+    color: "#ff9f1c", // Warm Amber
+    icon: "radio"
+  },
+  {
+    id: "jago-fm",
+    name: "Jago FM",
+    nameBn: "জাগো এফএম",
+    frequency: "94.4 FM",
+    freqNum: 94.4,
+    category: "commercial",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "http://139.59.86.99:12496/stream",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "96 Kb/s",
+    tagline: "Feel the Pulse of Dhaka",
+    taglineBn: "জাগো বাংলাদেশ!",
+    website: "http://jago.fm",
+    genre: "Entertainment",
+    genreBn: "বিনোদন ও গান",
+    color: "#10b981", // Emerald Green
+    icon: "drum"
+  },
+  {
+    id: "spice-fm",
+    name: "Spice FM",
+    nameBn: "স্পাইস এফএম",
+    frequency: "96.4 FM",
+    freqNum: 96.4,
+    category: "commercial",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "https://stream.spicefmbd.com/stream.m3u8",
+    fallbackUrls: [],
+    type: "hls",
+    bitrate: "128 Kb/s",
+    tagline: "City on Fire / Pure Beats",
+    taglineBn: "শহরের উত্তাপ ও সুর",
+    website: "https://spicefmbd.com",
+    genre: "EDM & Dance",
+    genreBn: "ডান্স ও ইডিএম",
+    color: "#8b5cf6", // Purple
+    icon: "waveform"
+  },
+  {
+    id: "peoples-radio",
+    name: "Peoples Radio",
+    nameBn: "পিপলস রেডিও",
+    frequency: "91.6 FM",
+    freqNum: 91.6,
+    category: "commercial",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "https://s3.myradiostream.com:14498/listen.mp3",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "96 Kb/s",
+    tagline: "Voice of the People",
+    taglineBn: "জনগণের কণ্ঠস্বর",
+    website: "https://peoplesradio.fm",
+    genre: "Bangla Rock",
+    genreBn: "বাংলা রক",
+    color: "#ec4899", // Pink
+    icon: "guitar"
+  },
+  {
+    id: "betar-dhaka-ka",
+    name: "Bangladesh Betar (Dhaka Ka)",
+    nameBn: "বাংলাদেশ বেতার (ঢাকা ‘ক’)",
+    frequency: "100.0 FM / 693 AM",
+    freqNum: 100.0,
+    category: "betar",
+    location: "Dhaka (National)",
+    locationBn: "ঢাকা (জাতীয়)",
+    streamUrl: "http://as1.digitalsynapsebd.com:8582/;",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "64 Kb/s",
+    tagline: "Official National Broadcaster",
+    taglineBn: "গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের জাতীয় বেতার",
+    website: "http://betar.gov.bd",
+    genre: "National Service",
+    genreBn: "জাতীয় সংবাদ ও নাটক",
+    color: "#059669", // Betar Green
+    icon: "tower"
+  },
+  {
+    id: "betar-commercial",
+    name: "Betar Commercial Service",
+    nameBn: "বেতার বাণিজ্যিক কার্যক্রম",
+    frequency: "630 AM / 90.0 FM",
+    freqNum: 90.0,
+    category: "betar",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "http://as1.digitalsynapsebd.com:8741/;",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "48 Kb/s",
+    tagline: "Commercial Broadcasting",
+    taglineBn: "বাণিজ্যিক সম্প্রচার কার্যক্রম",
+    website: "http://betar.gov.bd",
+    genre: "Drama & Classic",
+    genreBn: "নাটক ও বিজ্ঞাপন",
+    color: "#0284c7", // Sky Blue
+    icon: "saxophone"
+  },
+  {
+    id: "betar-102",
+    name: "Betar FM 102.0 MHz",
+    nameBn: "বেতার এফএম ১০২.০",
+    frequency: "102.0 FM",
+    freqNum: 102.0,
+    category: "betar",
+    location: "Dhaka & Regional",
+    locationBn: "ঢাকা ও চট্টগ্রাম",
+    streamUrl: "http://as1.digitalsynapsebd.com:8004/;",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "48 Kb/s",
+    tagline: "Youth & Regional Music",
+    taglineBn: "শিক্ষা ও যুব কার্যক্রম",
+    website: "http://betar.gov.bd",
+    genre: "Education & Art",
+    genreBn: "শিক্ষা ও সাহিত্য",
+    color: "#0d9488", // Teal
+    icon: "radio"
+  },
+  {
+    id: "betar-traffic",
+    name: "Betar Traffic FM",
+    nameBn: "বেতার ট্রাফিক সম্প্রচার",
+    frequency: "88.8 FM",
+    freqNum: 88.8,
+    category: "betar",
+    location: "Dhaka Metro",
+    locationBn: "ঢাকা মেট্রো",
+    streamUrl: "http://as1.digitalsynapsebd.com:8000/;",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "48 Kb/s",
+    tagline: "Live Traffic Updates",
+    taglineBn: "লাইভ ট্রাফিক বুলেটিন",
+    website: "http://betar.gov.bd",
+    genre: "Traffic & News",
+    genreBn: "ট্রাফিক আপডেট",
+    color: "#d97706", // Amber
+    icon: "tower"
+  },
+  {
+    id: "radio-goongoon",
+    name: "Radio GoonGoon",
+    nameBn: "রেডিও গুনগুন",
+    frequency: "Online HD",
+    freqNum: 98.2,
+    category: "music",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "https://audio.streamcast.xyz/listen/radiogoongoon/radio.mp3",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "192 Kb/s",
+    tagline: "Golden Era Bangla Melodies",
+    taglineBn: "চিরসবুজ বাংলা গান",
+    website: "https://radiogoongoon.com",
+    genre: "Golden Classics",
+    genreBn: "স্বর্ণযুগীয় গান",
+    color: "#e11d48", // Rose Red
+    icon: "ektara"
+  },
+  {
+    id: "mellow-bangla",
+    name: "Mellow Bangla",
+    nameBn: "মেলো বাংলা",
+    frequency: "HD Stream",
+    freqNum: 95.8,
+    category: "music",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "https://radio.mellowbangla.com/stream",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "192 Kb/s",
+    tagline: "Acoustic, Folk & Chill Bangla",
+    taglineBn: "শান্ত স্নিগ্ধ বাংলা গান",
+    website: "https://mellowbangla.com",
+    genre: "Acoustic & Folk",
+    genreBn: "অ্যাকোস্টিক ও ফোক",
+    color: "#14b8a6", // Teal
+    icon: "guitar"
+  },
+  {
+    id: "hot-now-bangla",
+    name: "Hot Now Bangla",
+    nameBn: "হট নাউ বাংলা",
+    frequency: "Online Hits",
+    freqNum: 104.5,
+    category: "music",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "https://stream.radiotreetal.com/listen",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "128 Kb/s",
+    tagline: "Today's Trending Bangla Hits",
+    taglineBn: "আজকের সেরা বাংলা গান",
+    website: "https://radiotreetal.com",
+    genre: "Trending Hits",
+    genreBn: "শীর্ষ চার্টবাস্টার",
+    color: "#f43f5e", // Hot Pink
+    icon: "waveform"
+  },
+  {
+    id: "a2z-radio",
+    name: "A2Z Radio Bangla",
+    nameBn: "এ টু জেড রেডিও",
+    frequency: "Global Stream",
+    freqNum: 93.6,
+    category: "music",
+    location: "Worldwide / BD",
+    locationBn: "প্রবাসী ও স্বদেশ",
+    streamUrl: "https://listen.radioking.com/radio/1743/stream/125",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "128 Kb/s",
+    tagline: "All-Round Bangla Radio",
+    taglineBn: "বাংলা গানের সমাহার",
+    website: "https://liveonlineradio.net",
+    genre: "Variety Music",
+    genreBn: "নানা সুরের গান",
+    color: "#6366f1", // Indigo
+    icon: "headphones"
+  },
+  {
+    id: "radio-khushbu",
+    name: "Radio Khushbu",
+    nameBn: "রেডিও খুশবু",
+    frequency: "AAC Stream",
+    freqNum: 101.2,
+    category: "music",
+    location: "Bengal Region",
+    locationBn: "বাংলা অঞ্চল",
+    streamUrl: "https://radio.pblab.in/radiokhushbu",
+    fallbackUrls: [],
+    type: "aac",
+    bitrate: "96 Kb/s",
+    tagline: "Classical & Ghazal Melodies",
+    taglineBn: "সুরের সুবাস ও গজল",
+    website: "https://radio.pblab.in",
+    genre: "Raag & Ghazal",
+    genreBn: "রাগ ও গজল",
+    color: "#f59e0b", // Gold
+    icon: "saxophone"
+  },
+  {
+    id: "al-quran-bangla",
+    name: "Al-Quran Bangla Radio",
+    nameBn: "আল-কুরআন বাংলা রেডিও",
+    frequency: "Spiritual 24/7",
+    freqNum: 87.8,
+    category: "spiritual",
+    location: "Dhaka, Bangladesh",
+    locationBn: "ঢাকা, বাংলাদেশ",
+    streamUrl: "http://66.45.232.131:9994/;stream/1/;",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "128 Kb/s",
+    tagline: "Quran Recitation with Bangla Translation",
+    taglineBn: "পবিত্র কুরআন তিলাওয়াত ও অনুবাদ",
+    website: "https://quranbangla.com",
+    genre: "Quran & Tafseer",
+    genreBn: "কুরআন ও অর্থ",
+    color: "#059669", // Islamic Green
+    icon: "mic"
+  },
+  {
+    id: "universal-health",
+    name: "Universal Health Radio",
+    nameBn: "ইউনিভার্সাল হেলথ রেডিও",
+    frequency: "Public Service",
+    freqNum: 97.4,
+    category: "talk",
+    location: "Bangladesh / WHO",
+    locationBn: "বাংলাদেশ / স্বাস্থ্য",
+    streamUrl: "https://radio.universalhealthradio.org/uhr-bn.mp3",
+    fallbackUrls: [],
+    type: "mp3",
+    bitrate: "128 Kb/s",
+    tagline: "Health Guidance & Awareness",
+    taglineBn: "স্বাস্থ্য পরামর্শ ও চিকিৎসা",
+    website: "https://universalhealthradio.org",
+    genre: "Health & Tips",
+    genreBn: "স্বাস্থ্য তথ্য",
+    color: "#0284c7", // Sky Blue
+    icon: "radio"
+  },
+  {
+    id: "akashvani-maitree",
+    name: "Akashvani Maitree",
+    nameBn: "আকাশবাণী মৈত্রী",
+    frequency: "Digital Betar",
+    freqNum: 103.5,
+    category: "heritage",
+    location: "Dhaka - Kolkata Bridge",
+    locationBn: "ঢাকা - কলকাতা মেলবন্ধন",
+    streamUrl: "https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio245/hlspbaudio24564kbps.m3u8",
+    fallbackUrls: [],
+    type: "hls",
+    bitrate: "64 Kb/s",
+    tagline: "Cultural Bridge of Two Bengals",
+    taglineBn: "দুই বাংলার সংস্কৃতি ও সাহিত্যের সেতু",
+    website: "https://prasarbharati.gov.in",
+    genre: "Literature & Arts",
+    genreBn: "সাহিত্য ও সংস্কৃতি",
+    color: "#c026d3", // Purple Magenta
+    icon: "saxophone"
+  },
+  {
+    id: "air-fm-gold",
+    name: "AIR FM Gold Kolkata",
+    nameBn: "এআইআর এফএম গোল্ড",
+    frequency: "100.1 FM",
+    freqNum: 100.1,
+    category: "heritage",
+    location: "Kolkata (Bengal)",
+    locationBn: "কলকাতা (বাংলা)",
+    streamUrl: "https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio057/hlspbaudio05764kbps.m3u8",
+    fallbackUrls: [],
+    type: "hls",
+    bitrate: "64 Kb/s",
+    tagline: "Golden Era Classics & News",
+    taglineBn: "স্বর্ণযুগের গান ও সংবাদ",
+    website: "https://prasarbharati.gov.in",
+    genre: "Golden Hits",
+    genreBn: "ক্লাসিক বাংলা গান",
+    color: "#ea580c", // Deep Orange
+    icon: "ektara"
+  },
+  {
+    id: "air-geetanjali",
+    name: "AIR Geetanjali",
+    nameBn: "এআইআর গীতাঞ্জলি",
+    frequency: "Classical Bengal",
+    freqNum: 99.2,
+    category: "heritage",
+    location: "Bengal Region",
+    locationBn: "বাংলা সংস্কৃতি",
+    streamUrl: "https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio055/hlspbaudio05564kbps.m3u8",
+    fallbackUrls: [],
+    type: "hls",
+    bitrate: "64 Kb/s",
+    tagline: "Rabindra & Nazrul Sangeet",
+    taglineBn: "রবীন্দ্রসঙ্গীত ও নজরুলগীতি",
+    website: "https://prasarbharati.gov.in",
+    genre: "Rabindra Sangeet",
+    genreBn: "রবীন্দ্রসঙ্গীত",
+    color: "#7c3aed", // Violet
+    icon: "flute"
+  },
+  {
+    id: "air-fm-rainbow",
+    name: "AIR FM Rainbow",
+    nameBn: "এআইআর এফএম রেইনবো",
+    frequency: "107.0 FM",
+    freqNum: 107.0,
+    category: "heritage",
+    location: "Bengal Region",
+    locationBn: "বাংলা",
+    streamUrl: "https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio058/hlspbaudio05864kbps.m3u8",
+    fallbackUrls: [],
+    type: "hls",
+    bitrate: "64 Kb/s",
+    tagline: "Vibrant Bangla Pop & RJ Shows",
+    taglineBn: "সাত রঙের সুর ও কথকতা",
+    website: "https://prasarbharati.gov.in",
+    genre: "Modern Pop",
+    genreBn: "আধুনিক বাংলা গান",
+    color: "#06b6d4", // Cyan
+    icon: "headphones"
+  }
+];
+
+export const INITIAL_FAVORITES = [
+  "radio-foorti",
+  "radio-today",
+  "dhaka-fm",
+  "betar-dhaka-ka",
+  "radio-goongoon"
+];

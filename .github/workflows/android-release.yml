@@ -1,0 +1,96 @@
+name: Build & Release Android APK
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: "Release tag (e.g. v1.0.1)"
+        required: true
+        default: "v1.0.0"
+
+permissions:
+  contents: write
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NPM Dependencies
+        run: npm ci
+
+      - name: Build Next.js Static Export
+        run: npm run build
+
+      - name: Sync Capacitor Android
+        run: npx cap sync android
+
+      - name: Make Gradle Wrapper Executable
+        run: chmod +x ./android/gradlew
+
+      - name: Build Android APK
+        run: |
+          cd android
+          ./gradlew assembleDebug --stacktrace
+
+      - name: Prepare APK Asset
+        id: prepare-apk
+        run: |
+          TAG="${{ github.ref_name }}"
+          if [ -z "$TAG" ] || [ "$TAG" = "main" ]; then
+            TAG="${{ github.event.inputs.version_tag || 'v1.0.0' }}"
+          fi
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          mkdir -p release-assets
+          cp android/app/build/outputs/apk/debug/app-debug.apk release-assets/RadioBD-${TAG}.apk
+          echo "APK_PATH=release-assets/RadioBD-${TAG}.apk" >> $GITHUB_OUTPUT
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RadioBD-Android-APK
+          path: ${{ steps.prepare-apk.outputs.APK_PATH }}
+          retention-days: 14
+
+      - name: Create GitHub Release with APK
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+        with:
+          tag_name: ${{ steps.prepare-apk.outputs.TAG }}
+          name: Radio BD ${{ steps.prepare-apk.outputs.TAG }}
+          body: |
+            ## 📻 Radio BD - Live Bangladeshi FM & Betar Radio
+            
+            ### 🚀 What's New in ${{ steps.prepare-apk.outputs.TAG }}
+            - Complete directory of 21 verified Bangladeshi radio stations.
+            - HLS (.m3u8), MP3, and AAC live audio streaming engine.
+            - Mobile-first aesthetic with full-screen player, spinning vinyl disc, and audio spectrum visualizer.
+            - Background playback, safe-area support, and in-app auto updates.
+            
+            ### 📲 Download & Installation
+            Download the `RadioBD-${{ steps.prepare-apk.outputs.TAG }}.apk` file below and open it on your Android device to install or update the app.
+          files: ${{ steps.prepare-apk.outputs.APK_PATH }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
