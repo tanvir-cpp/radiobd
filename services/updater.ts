@@ -12,7 +12,7 @@ export interface UpdateInfo {
   publishedAt: string;
 }
 
-const DEFAULT_REPO = "shakhawathossain/radiobd";
+const DEFAULT_REPO = "tanvir-cpp/radiobd";
 const FALLBACK_VERSION = "1.0.0";
 
 export const getAppVersion = async (): Promise<string> => {
